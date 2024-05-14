@@ -1,5 +1,5 @@
 name: release
-
+#clap_cli change for the targets !!!
 # Only do the release on x.y.z tags.
 on:
   push:
@@ -176,9 +176,9 @@ jobs:
       run: |
         ${{ env.CARGO }} build --verbose --release ${{ env.TARGET_FLAGS }}
         if [ "${{ matrix.os }}" = "windows-latest" ]; then
-          bin="target/${{ matrix.target }}/release/rg.exe"
+          bin="target/${{ matrix.target }}/release/clap_cli.exe"
         else
-          bin="target/${{ matrix.target }}/release/rg"
+          bin="target/${{ matrix.target }}/release/clap_cli"
         fi
         echo "BIN=$bin" >> $GITHUB_ENV
 
@@ -216,11 +216,11 @@ jobs:
       shell: bash
       run: |
         "$BIN" --version
-        "$BIN" --generate complete-bash > "$ARCHIVE/complete/rg.bash"
-        "$BIN" --generate complete-fish > "$ARCHIVE/complete/rg.fish"
+        "$BIN" --generate complete-bash > "$ARCHIVE/complete/clap_cli.bash"
+        "$BIN" --generate complete-fish > "$ARCHIVE/complete/clap_cli.fish"
         "$BIN" --generate complete-powershell > "$ARCHIVE/complete/_rg.ps1"
         "$BIN" --generate complete-zsh > "$ARCHIVE/complete/_rg"
-        "$BIN" --generate man > "$ARCHIVE/doc/rg.1"
+        "$BIN" --generate man > "$ARCHIVE/doc/clap_cli.1"
 
     - name: Generate man page and completions (emulation)
       if: matrix.qemu != ''
@@ -234,12 +234,12 @@ jobs:
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
           "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-bash > "$ARCHIVE/complete/rg.bash"
+            --generate complete-bash > "$ARCHIVE/complete/clap_cli.bash"
         docker run --rm -v \
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
           "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-fish > "$ARCHIVE/complete/rg.fish"
+            --generate complete-fish > "$ARCHIVE/complete/clap_cli.fish"
         docker run --rm -v \
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
@@ -254,7 +254,7 @@ jobs:
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
           "${{ matrix.qemu }}" "/$BIN" \
-            --generate man > "$ARCHIVE/doc/rg.1"
+            --generate man > "$ARCHIVE/doc/clap_cli.1"
 
     - name: Build archive (Windows)
       shell: bash
@@ -323,7 +323,7 @@ jobs:
       shell: bash
       run: |
         cargo build --target ${{ env.TARGET }}
-        bin="target/${{ env.TARGET }}/debug/rg"
+        bin="target/${{ env.TARGET }}/debug/clap_cli"
         echo "BIN=$bin" >> $GITHUB_ENV
 
     - name: Create deployment directory
@@ -336,14 +336,14 @@ jobs:
     - name: Generate man page
       shell: bash
       run: |
-        "$BIN" --generate man > "$DEPLOY_DIR/rg.1"
+        "$BIN" --generate man > "$DEPLOY_DIR/clap_cli.1"
 
     - name: Generate shell completions
       shell: bash
       run: |
-        "$BIN" --generate complete-bash > "$DEPLOY_DIR/rg.bash"
-        "$BIN" --generate complete-fish > "$DEPLOY_DIR/rg.fish"
-        "$BIN" --generate complete-zsh > "$DEPLOY_DIR/_rg"
+        "$BIN" --generate complete-bash > "$DEPLOY_DIR/clap_cli.bash"
+        "$BIN" --generate complete-fish > "$DEPLOY_DIR/clap_cli.fish"
+        "$BIN" --generate complete-zsh > "$DEPLOY_DIR/_clap_cli"
 
     - name: Build release binary
       shell: bash
