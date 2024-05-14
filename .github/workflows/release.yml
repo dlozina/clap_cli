@@ -211,51 +211,6 @@ jobs:
         cp README.md "$ARCHIVE"/
         cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
 
-    - name: Generate man page and completions (no emulation)
-      if: matrix.qemu == ''
-      shell: bash
-      run: |
-        "$BIN" --version
-        "$BIN" --generate complete-bash > "$ARCHIVE/complete/clap_cli.bash"
-        "$BIN" --generate complete-fish > "$ARCHIVE/complete/clap_cli.fish"
-        "$BIN" --generate complete-powershell > "$ARCHIVE/complete/_clap_cli.ps1"
-        "$BIN" --generate complete-zsh > "$ARCHIVE/complete/_clap_cli"
-        "$BIN" --generate man > "$ARCHIVE/doc/clap_cli.1"
-
-    - name: Generate man page and completions (emulation)
-      if: matrix.qemu != ''
-      shell: bash
-      run: |
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" --version
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-bash > "$ARCHIVE/complete/clap_cli.bash"
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-fish > "$ARCHIVE/complete/clap_cli.fish"
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-powershell > "$ARCHIVE/complete/_clap_cli.ps1"
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-zsh > "$ARCHIVE/complete/_clap_cli"
-        docker run --rm -v \
-          "$PWD/target:/target:Z" \
-          "ghcr.io/cross-rs/${{ matrix.target }}:main" \
-          "${{ matrix.qemu }}" "/$BIN" \
-            --generate man > "$ARCHIVE/doc/clap_cli.1"
-
     - name: Build archive (Windows)
       shell: bash
       if: matrix.os == 'windows-latest'
@@ -332,18 +287,6 @@ jobs:
         dir=deployment/deb
         mkdir -p "$dir"
         echo "DEPLOY_DIR=$dir" >> $GITHUB_ENV
-
-    - name: Generate man page
-      shell: bash
-      run: |
-        "$BIN" --generate man > "$DEPLOY_DIR/clap_cli.1"
-
-    - name: Generate shell completions
-      shell: bash
-      run: |
-        "$BIN" --generate complete-bash > "$DEPLOY_DIR/clap_cli.bash"
-        "$BIN" --generate complete-fish > "$DEPLOY_DIR/clap_cli.fish"
-        "$BIN" --generate complete-zsh > "$DEPLOY_DIR/_clap_cli"
 
     - name: Build release binary
       shell: bash
