@@ -167,7 +167,7 @@ jobs:
 
     - name: Print hostname detected by grep-cli crate
       shell: bash
-      run: ${{ env.CARGO }} test --manifest-path crates/cli/Cargo.toml ${{ env.TARGET_FLAGS }} --lib print_hostname -- --nocapture
+      run: ${{ env.CARGO }} test --manifest-path Cargo.toml ${{ env.TARGET_FLAGS }} --lib print_hostname -- --nocapture
 
     - name: Print available short flags
       shell: bash
