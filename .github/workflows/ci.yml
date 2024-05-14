@@ -171,7 +171,7 @@ jobs:
 
     - name: Print available short flags
       shell: bash
-      run: ${{ env.CARGO }} test --bin rg ${{ env.TARGET_FLAGS }} flags::defs::tests::available_shorts -- --nocapture
+      run: ${{ env.CARGO }} test --bin clap_cli ${{ env.TARGET_FLAGS }} flags::defs::tests::available_shorts -- --nocapture
 
      # Setup and compile on the wasm32-wasi target
   wasm:

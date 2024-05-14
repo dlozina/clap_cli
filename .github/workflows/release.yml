@@ -208,8 +208,8 @@ jobs:
       run: |
         mkdir -p "$ARCHIVE"/{complete,doc}
         cp "$BIN" "$ARCHIVE"/
-        cp {README.md,COPYING,UNLICENSE,LICENSE-MIT} "$ARCHIVE"/
-        cp {CHANGELOG.md,FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
+        cp {README.md} "$ARCHIVE"/
+        cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
 
     - name: Generate man page and completions (no emulation)
       if: matrix.qemu == ''
@@ -218,8 +218,8 @@ jobs:
         "$BIN" --version
         "$BIN" --generate complete-bash > "$ARCHIVE/complete/clap_cli.bash"
         "$BIN" --generate complete-fish > "$ARCHIVE/complete/clap_cli.fish"
-        "$BIN" --generate complete-powershell > "$ARCHIVE/complete/_rg.ps1"
-        "$BIN" --generate complete-zsh > "$ARCHIVE/complete/_rg"
+        "$BIN" --generate complete-powershell > "$ARCHIVE/complete/_clap_cli.ps1"
+        "$BIN" --generate complete-zsh > "$ARCHIVE/complete/_clap_cli"
         "$BIN" --generate man > "$ARCHIVE/doc/clap_cli.1"
 
     - name: Generate man page and completions (emulation)
@@ -244,12 +244,12 @@ jobs:
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
           "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-powershell > "$ARCHIVE/complete/_rg.ps1"
+            --generate complete-powershell > "$ARCHIVE/complete/_clap_cli.ps1"
         docker run --rm -v \
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
           "${{ matrix.qemu }}" "/$BIN" \
-            --generate complete-zsh > "$ARCHIVE/complete/_rg"
+            --generate complete-zsh > "$ARCHIVE/complete/_clap_cli"
         docker run --rm -v \
           "$PWD/target:/target:Z" \
           "ghcr.io/cross-rs/${{ matrix.target }}:main" \
