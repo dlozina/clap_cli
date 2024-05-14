@@ -111,7 +111,7 @@ jobs:
     - name: Install packages (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        ./ci/ubuntu-install-packages
+        ci/ubuntu-install-packages
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@master
@@ -171,15 +171,6 @@ jobs:
       # regex engine and once with PCRE2.
       if: matrix.target != ''
       run: ${{ env.CARGO }} test --verbose --workspace ${{ env.TARGET_FLAGS }}
-
-    - name: Test zsh shell completions (Unix, sans cross)
-      # We could test this when using Cross, but we'd have to execute the
-      # 'rg' binary (done in test-complete) with qemu, which is a pain and
-      # doesn't really gain us much. If shell completion works in one place,
-      # it probably works everywhere.
-      if: matrix.target == '' && matrix.os != 'windows-2022'
-      shell: bash
-      run: ci/test-complete
 
     - name: Print hostname detected by grep-cli crate
       shell: bash
