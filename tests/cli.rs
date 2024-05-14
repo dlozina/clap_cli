@@ -1,7 +1,7 @@
 use assert_cmd::prelude::*; // Add methods on commands
+use assert_fs::prelude::*;
 use predicates::prelude::*; // Used for writing assertions
-use std::process::Command; // Run programs
-use assert_fs::prelude::*; // Create a file
+use std::process::Command; // Run programs // Create a file
 
 // Integration test
 #[test]

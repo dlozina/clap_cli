@@ -140,7 +140,7 @@ jobs:
         echo "target flag is: ${{ env.TARGET_FLAGS }}"
         echo "target dir is: ${{ env.TARGET_DIR }}"
 
-    - name: Build ripgrep and all crates
+    - name: Build CLI and all crates
       run: ${{ env.CARGO }} build --verbose --workspace ${{ env.TARGET_FLAGS }}
 
     # This is useful for debugging problems when the expected build artifacts
@@ -157,7 +157,7 @@ jobs:
         fi
         set -x
 
-    - name: Run tests without PCRE2 (with cross)
+    - name: Run tests (with cross)
       # These tests should actually work, but they almost double the runtime.
       # Every integration test spins up qemu to run 'rg', and when PCRE2 is
       # enabled, every integration test is run twice: one with the default

@@ -208,7 +208,7 @@ jobs:
       run: |
         mkdir -p "$ARCHIVE"/{complete,doc}
         cp "$BIN" "$ARCHIVE"/
-        cp {README.md} "$ARCHIVE"/
+        cp README.md "$ARCHIVE"/
         cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
 
     - name: Generate man page and completions (no emulation)
