@@ -1,7 +1,15 @@
 [package]
 name = "clap_cli"
-version = "0.18.0"
+version = "0.19.0"
 edition = "2021"
+authors = ["Dino Lozina <dino.lozina@live.com>"]
+license = "MIT OR Apache-2.0"
+description = "A tool to search files and test publish workflow"
+readme = "README.md"
+homepage = "https://github.com/dlozina/clap_cli"
+repository = "https://github.com/dlozina/clap_cli"
+keywords = ["cli", "search", "demo"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
