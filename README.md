@@ -24,6 +24,10 @@ Add `Debian` profile to your `Cargo.toml`:
 inherits = "release"
 debug = false
 ```
+For `Debian` build we need to add:
+```bash
+clap-cli # with dash even though our project name is clap-cli, it is just the way how build is built clap-cli_0.20.0-1_amd64.deb
+```
 
 ## Publishing new version
 
