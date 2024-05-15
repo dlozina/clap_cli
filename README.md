@@ -18,6 +18,12 @@ Change directory for various files you want to ship with project:
         cp {README.md,LICENSE-MIT} "$ARCHIVE"/
         cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
 ```
+Add `Debian` profile to your `Cargo.toml`:
+```bash
+[profile.deb]
+inherits = "release"
+debug = false
+```
 
 ## Publishing new version
 
