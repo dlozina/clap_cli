@@ -201,7 +201,7 @@ jobs:
       shell: bash
       run: |
         version="${{ needs.create-release.outputs.version }}"
-        echo "ARCHIVE=ripgrep-$version-${{ matrix.target }}" >> $GITHUB_ENV
+        echo "ARCHIVE=clap-cli-$version-${{ matrix.target }}" >> $GITHUB_ENV
 
     - name: Creating directory for archive
       shell: bash
