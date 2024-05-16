@@ -208,7 +208,7 @@ jobs:
     - name: Creating directory for archive
       shell: bash
       run: |
-        mkdir -p "$ARCHIVE"/{examples,doc}
+        mkdir -p "$ARCHIVE"/{examples,photoniq-faas-sdk,doc}
         cp "$BIN" "$ARCHIVE"/
         cp {README.md,LICENSE-MIT} "$ARCHIVE"/
         cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
