@@ -49,3 +49,15 @@ Push the release tag to remote.
 git push origin 0.18.0 
 ```
 Release workflow is triggered by `tag` push.
+
+# How to remove tags 
+
+Locally:
+```bash
+git tag -d 0.20.0
+```
+
+Remote:
+```bash
+git push origin --delete 0.20.0
+```
