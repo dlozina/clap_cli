@@ -1,0 +1,18 @@
+
+name = "{{function_name}}"
+version = "0.0.1"
+description = "Description for function {{function_name}}"
+lang = "js"
+#execute_url_suffix = "optional_url_suffix_to_execute_function"
+
+[cors_settings]
+allowed_methods = ["GET","POST"]
+allowed_hosts = ["macrometa.com"]
+allow_http = true
+
+[log_settings]
+enabled = true
+level = "INFO"
+
+[env_vars]
+MESSAGE = "Hello 👋! This message comes from an environment variable"

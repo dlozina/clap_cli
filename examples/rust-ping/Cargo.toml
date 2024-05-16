@@ -1,0 +1,13 @@
+[package]
+name = "{{function_name}}"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+photoniq-faas-sdk = { path = "../../photoniq-faas-sdk/rust/sdk" }
+anyhow = "1.0.66"
+
+[workspace]
+members = [
+    "."
+]

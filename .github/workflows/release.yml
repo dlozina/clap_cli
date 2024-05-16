@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Get the release version from the tag
         if: env.VERSION == ''
         run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
@@ -57,8 +59,6 @@ jobs:
       CROSS_VERSION: v0.2.5
       # Emit backtraces on panics.
       RUST_BACKTRACE: 1
-      # Build static releases with PCRE2.
-      PCRE2_SYS_STATIC: 1
     strategy:
       fail-fast: false
       matrix:
@@ -130,6 +130,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Install packages (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
@@ -206,10 +208,12 @@ jobs:
     - name: Creating directory for archive
       shell: bash
       run: |
-        mkdir -p "$ARCHIVE"/{complete,doc}
+        mkdir -p "$ARCHIVE"/{examples,doc}
         cp "$BIN" "$ARCHIVE"/
         cp {README.md,LICENSE-MIT} "$ARCHIVE"/
         cp {FAQ.md,GUIDE.md} "$ARCHIVE"/doc/
+        cp -r examples/* "$ARCHIVE"/examples/
+        cp -r photoniq-faas-sdk/* "$ARCHIVE"/photoniq-faas-sdk/
 
     - name: Build archive (Windows)
       shell: bash
@@ -245,13 +249,12 @@ jobs:
       TARGET: x86_64-unknown-linux-musl
       # Emit backtraces on panics.
       RUST_BACKTRACE: 1
-      # Since we're distributing the dpkg, we don't know whether the user will
-      # have PCRE2 installed, so just do a static build.
-      PCRE2_SYS_STATIC: 1
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        submodules: true
 
     - name: Install packages (Ubuntu)
       shell: bash
