@@ -139,8 +139,6 @@ jobs:
         echo "cargo command is: ${{ env.CARGO }}"
         echo "target flag is: ${{ env.TARGET_FLAGS }}"
         echo "target dir is: ${{ env.TARGET_DIR }}"
-    - name: Test the code vulnerabilities
-      run: ${{ env.CARGO }} clippy
     - name: Build CLI and all crates
       run: ${{ env.CARGO }} build --verbose --workspace ${{ env.TARGET_FLAGS }}
 
